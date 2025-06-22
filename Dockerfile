@@ -1,20 +1,4 @@
-name: publish
-
-on: [push]
-
-jobs:
-  publish-hello-docker-image:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - name: Login to GitHub Container Registry
-        uses: docker/login-action@v1
-        with:
-          registry: ghcr.io
-          username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
-      - name: Build the hello-docker Docker image
-        run: |
-          docker build . --tag ghcr.io/wsgamer7/hello-docker-gcr-demo:latest
-          docker run ghcr.io/wsgamer7/hello-docker-gcr-demo:latest
-          docker push ghcr.io/wsgamer7/hello-docker-gcr-demo:latest
+FROM node:alpine
+COPY . /app
+WORKDIR /app
+CMD node app.js
