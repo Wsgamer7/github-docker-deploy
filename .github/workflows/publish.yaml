@@ -29,10 +29,10 @@ jobs:
           ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
       - name: Deploy to Server
         run: |
-          ssh -o StrictHostKeyChecking=no -p $root@${{ secrets.HOST }} << 'EOF'
+          ssh -o StrictHostKeyChecking=no -p 22 root@164.92.82.130 << 'EOF'
             docker login ghcr.io -u wsgamer7 -p ${{ secrets.GITHUB_TOKEN }}
             docker pull ghcr.io/wsgamer7/hello-docker-gcr-demo:latest
             docker hello-docker-gcr-demo || true
             docker rm hello-docker-gcr-demo || true
-            docker run -d --name hello-docker-gcr-demo -p 8765:3000 -e JWT_SECRET=${JWT_SECRET} ghcr.io/wsgamer7/hello-docker-gcr-demo:latest
+            docker run -d --name hello-docker-gcr-demo -p 8765:3000 -e JWT_SECRET=${{ secrets.JWT_SECRET }} ghcr.io/wsgamer7/hello-docker-gcr-demo:latest
           EOF
