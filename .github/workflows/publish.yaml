@@ -8,7 +8,7 @@ on:
 jobs:
   publish-hello-docker-image:
     runs-on: ubuntu-latest
-    environment:dg-cloud-vm
+    environment: dg-cloud-vm
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
